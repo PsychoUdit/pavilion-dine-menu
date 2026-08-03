@@ -79,6 +79,10 @@ function MenuPage() {
   );
 
   useEffect(() => {
+    const ids = new Set(sections.map((c) => c.id));
+    setActiveId((current) =>
+      current && !ids.has(current) ? (sections[0]?.id ?? "") : current,
+    );
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -88,12 +92,12 @@ function MenuPage() {
       },
       { rootMargin: "-140px 0px -65% 0px", threshold: 0 },
     );
-    menu.forEach((c) => {
+    sections.forEach((c) => {
       const el = document.getElementById(c.id);
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, [sections.length]);
+  }, [sections]);
 
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 900);
@@ -205,29 +209,31 @@ function MenuPage() {
               </div>
             </div>
 
-            <nav aria-label="Menu categories" className="mt-2">
-              <div
-                ref={navRef}
-                className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-              >
-                {menu.map((cat) => (
-                  <a
-                    key={cat.id}
-                    href={`#${cat.id}`}
-                    data-chip={cat.id}
-                    aria-current={activeId === cat.id ? "true" : undefined}
-                    className={cn(
-                      "shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-medium tracking-wide whitespace-nowrap transition-colors",
-                      activeId === cat.id
-                        ? "border-gold bg-gold/15 text-foreground"
-                        : "border-border bg-card text-muted-foreground hover:border-gold/50 hover:text-foreground",
-                    )}
-                  >
-                    {cat.title}
-                  </a>
-                ))}
-              </div>
-            </nav>
+            {sections.length > 0 && (
+              <nav aria-label="Menu categories" className="mt-2">
+                <div
+                  ref={navRef}
+                  className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 scrollbar-none [&::-webkit-scrollbar]:hidden"
+                >
+                  {sections.map((cat) => (
+                    <a
+                      key={cat.id}
+                      href={`#${cat.id}`}
+                      data-chip={cat.id}
+                      aria-current={activeId === cat.id ? "true" : undefined}
+                      className={cn(
+                        "shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-medium tracking-wide whitespace-nowrap transition-colors",
+                        activeId === cat.id
+                          ? "border-gold bg-gold/15 text-foreground"
+                          : "border-border bg-card text-muted-foreground hover:border-gold/50 hover:text-foreground",
+                      )}
+                    >
+                      {cat.title}
+                    </a>
+                  ))}
+                </div>
+              </nav>
+            )}
           </div>
         </div>
 
@@ -240,7 +246,7 @@ function MenuPage() {
                 title="Most loved at Pavilion"
                 subtitle="The dishes our regulars come back for, week after week."
               />
-              <div className="-mx-5 mt-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="-mx-5 mt-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 scrollbar-none [&::-webkit-scrollbar]:hidden">
                 {popular.map((d) => (
                   <HighlightCard key={d.name} dish={d} category={d.cat} icon={Star} />
                 ))}
@@ -253,7 +259,7 @@ function MenuPage() {
                 title="Chef's recommendations"
                 subtitle="Hand-picked by our kitchen team for this season."
               />
-              <div className="-mx-5 mt-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="-mx-5 mt-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 scrollbar-none [&::-webkit-scrollbar]:hidden">
                 {chefPicks.map((d) => (
                   <HighlightCard key={d.name} dish={d} category={d.cat} icon={ChefHat} />
                 ))}
@@ -263,7 +269,7 @@ function MenuPage() {
         )}
 
         {/* ------------------------------------------------------------ The menu */}
-        <section id="menu" className="mx-auto max-w-3xl scroll-mt-40 px-5 pt-14 pb-4">
+        <section id="menu" className="mx-auto max-w-3xl px-5 pt-14 pb-4">
           <SectionHeading
             eyebrow="À la carte"
             title="The Menu"
@@ -301,10 +307,10 @@ function MenuPage() {
             </div>
           ) : (
             sections.map((cat) => (
-              <section key={cat.id} id={cat.id} className="scroll-mt-40 pt-10">
+              <section key={cat.id} id={cat.id} className="pt-10">
                 <div className="flex items-baseline gap-3">
                   <h3 className="text-2xl text-foreground sm:text-3xl">{cat.title}</h3>
-                  <span className="h-px flex-1 bg-gradient-to-r from-gold/60 to-transparent" aria-hidden="true" />
+                  <span className="h-px flex-1 bg-linear-to-r from-gold/60 to-transparent" aria-hidden="true" />
                 </div>
                 <p className="mt-1.5 text-sm text-muted-foreground italic">{cat.blurb}</p>
                 <ul className="mt-2 divide-y divide-border/70">
@@ -333,7 +339,7 @@ function MenuPage() {
                 <div className="absolute inset-0 grid place-items-center bg-secondary">
                   <Sparkles className="size-6 text-gold/60" aria-hidden="true" />
                 </div>
-                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-forest-deep/85 to-transparent p-3 pt-8">
+                <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-forest-deep/85 to-transparent p-3 pt-8">
                   <p className="font-display text-sm text-cream">{g.label}</p>
                   <p className="text-[0.68rem] text-cream/70">{g.note}</p>
                 </figcaption>
@@ -370,7 +376,7 @@ function MenuPage() {
         </section>
 
         {/* ------------------------------------------------- Hours, contact, map */}
-        <section id="visit" className="mx-auto max-w-3xl scroll-mt-40 px-5 py-16">
+        <section id="visit" className="mx-auto max-w-3xl px-5 py-16">
           <SectionHeading eyebrow="Plan your visit" title="Hours &amp; Location" />
           <div className="mt-9 grid gap-4 sm:grid-cols-2">
             <div className="surface-card rounded-xl p-6">
