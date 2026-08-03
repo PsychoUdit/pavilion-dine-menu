@@ -14,7 +14,7 @@ import {
   ArrowUp,
 } from "lucide-react";
 
-import heroImage from "@/assets/hero-dining.jpg";
+const heroImage = "/hero-dining.jpg";
 import { menu, restaurant, reviews, gallery, type Dish } from "@/data/menu";
 import { DishRow, DietMark } from "@/components/menu/DishRow";
 import { SectionHeading } from "@/components/menu/SectionHeading";
