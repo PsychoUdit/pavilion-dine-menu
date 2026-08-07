@@ -93,7 +93,7 @@ export const menu: MenuCategory[] = [
     title: "North Indian",
     blurb: "Signature curries in the Awadhi and Punjabi tradition.",
     items: [
-      { name: "Dal Pavilion", description: "Black lentils simmered overnight, tomato, cream, butter.", price: 445, diet: "veg", popular: true, chefPick: true },
+      { name: "Dal ", description: "Black lentils simmered overnight, tomato, cream, butter.", price: 445, diet: "veg", popular: true, chefPick: true },
       { name: "Paneer Lababdar", description: "Silky tomato-onion gravy, kasuri methi.", price: 465, diet: "veg" },
       { name: "Subz Miloni", description: "Seasonal vegetables, cashew gravy, garam masala.", price: 425, diet: "veg" },
       { name: "Murgh Butter Masala", description: "Tandoori chicken, tomato velouté, honey butter.", price: 545, diet: "nonveg", popular: true },
