@@ -23,10 +23,10 @@ export interface MenuCategory {
 }
 
 export const restaurant = {
-  name: "Pavilion",
+  name: "Amber & Oak",
   tagline: "All Day Dining",
   city: "Indore",
-  address: "Pavilion All Day Dining, Vijay Nagar, Indore, Madhya Pradesh 452010",
+  address: "Amber & Oak , Vijay Nagar, Indore, Madhya Pradesh 452010",
   phone: "+91 98260 00000",
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Pavilion+All+Day+Dining+Indore",
   hours: [
