@@ -117,7 +117,7 @@ function MenuPage() {
         <header className="relative isolate overflow-hidden">
           <img
             src={heroImage}
-            alt="The Pavilion dining room with green banquettes, chandeliers and the live buffet counter"
+            alt="The dining room with green banquettes, chandeliers and the live buffet counter"
             width={1600}
             height={1104}
             className="absolute inset-0 size-full object-cover"
@@ -243,7 +243,7 @@ function MenuPage() {
             <section className="mx-auto max-w-3xl px-5 pt-14">
               <SectionHeading
                 eyebrow="Guest favourites"
-                title="Most loved at Pavilion"
+                title="Most loved Dishes"
                 subtitle="The dishes our regulars come back for, week after week."
               />
               <div className="-mx-5 mt-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 scrollbar-none [&::-webkit-scrollbar]:hidden">
